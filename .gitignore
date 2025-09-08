@@ -1,0 +1,41 @@
+# OS / Editor cruft
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+*.tmp
+ehthumbs.db
+Icon?
+._*
+
+# Composer
+/vendor/
+/composer.lock
+
+# Node / Frontend
+/node_modules/
+/dist/
+/build/
+/*.cache
+
+# WordPress core & runtime (installed in public/)
+public/wp/
+/public/index.php
+/public/wp-*.php
+/public/xmlrpc.php
+/public/license.txt
+/public/readme.html
+/public/wp-content/uploads/
+/public/wp-content/cache/
+/public/wp-content/upgrade/
+
+# DDEV
+/.ddev/.global_commands
+/.ddev/commands/.DS_Store
+
+# IDE
+.idea/
+/.vscode/
+/nbproject/
+/*.iml

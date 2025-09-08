@@ -1,0 +1,9 @@
+type: wordpress
+docroot: public
+php_version: "8.3"
+webserver_type: nginx-fpm
+xdebug_enabled: false
+mutagen_enabled: true
+router_http_port: "80"
+router_https_port: "443"
+

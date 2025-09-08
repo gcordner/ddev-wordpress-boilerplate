@@ -1,0 +1,22 @@
+includes:
+  - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+  # Start moderate; raise toward 8–9 as you clean things up
+  level: 5
+  wordpressVersion: 6.6
+
+  paths:
+    - public/wp-content/themes/my-theme
+    # - public/wp-content/plugins/my-plugin
+
+  excludes_analyse:
+    - */vendor/*
+    - */node_modules/*
+    - */dist/*
+
+  # Commonly relaxed checks for WP codebases; tighten later if you like
+  checkMissingIterableValueType: false
+  checkGenericClassInNonGenericObjectType: false
+  checkUninitializedProperties: false
+
