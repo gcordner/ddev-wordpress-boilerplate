@@ -19,22 +19,19 @@ Icon?
 /build/
 /*.cache
 
-# WordPress core & runtime (installed in public/)
-public/wp/
-/public/index.php
-/public/wp-*.php
-/public/xmlrpc.php
-/public/license.txt
-/public/readme.html
-/public/wp-content/uploads/
-/public/wp-content/cache/
-/public/wp-content/upgrade/
+# WordPress core (downloaded by init script)
+public/
 
-# DDEV
+# DDEV add-on artifacts (reinstalled by init)
+.ddev/addon-metadata/
+.ddev/commands/host/adminer
+.ddev/docker-compose.*.yaml
+
+# DDEV misc
 /.ddev/.global_commands
 /.ddev/commands/.DS_Store
 
-# IDE
+# IDEs
 .idea/
 /.vscode/
 /nbproject/

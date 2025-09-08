@@ -6,7 +6,7 @@ set -euo pipefail
 echo "📦 Installing Composer dev tools..."
 ddev composer install
 
-# ── NEW: ensure Adminer add-on is present ────────────────────────────────
+# Ensure Adminer add-on (host-level)
 NEED_RESTART=0
 if ! ddev add-on list --installed | grep -q 'ddev-adminer'; then
   echo "🧰 Installing Adminer add-on…"
@@ -19,10 +19,10 @@ if [ "$NEED_RESTART" = "1" ]; then
   echo "🔁 Restarting to wire Adminer routes…"
   ddev restart
 fi
-# ─────────────────────────────────────────────────────────────────────────
 
 echo "🌐 Setting up WordPress..."
-bash .ddev/scripts/wp-install.sh
+# Run the installer script INSIDE the container
+ddev exec bash .ddev/scripts/wp-install.sh
 
 echo ""
 echo "✅ Project initialized."
@@ -33,3 +33,4 @@ echo ""
 echo "🗃  Adminer:"
 echo "   Open with: ddev adminer"
 echo "   Login → System: MySQL | Server: db | Username: db | Password: db | Database: db"
+
