@@ -6,8 +6,9 @@ set -euo pipefail
 echo "📦 Installing Composer dev tools..."
 ddev composer install
 
-# Ensure Adminer add-on (host-level)
 NEED_RESTART=0
+
+# ── Ensure Adminer add-on is installed (host-level)
 if ! ddev add-on list --installed | grep -q 'ddev-adminer'; then
   echo "🧰 Installing Adminer add-on…"
   ddev add-on get ddev/ddev-adminer
@@ -15,14 +16,29 @@ if ! ddev add-on list --installed | grep -q 'ddev-adminer'; then
 else
   echo "🧰 Adminer add-on already present."
 fi
-if [ "$NEED_RESTART" = "1" ]; then
-  echo "🔁 Restarting to wire Adminer routes…"
-  ddev restart
-fi
 
 echo "🌐 Setting up WordPress..."
 # Run the installer script INSIDE the container
 ddev exec bash .ddev/scripts/wp-install.sh
+
+# ── Enforce Adminer on 9110 (write live override on HOST)
+cat > .ddev/docker-compose.adminer.override.yaml <<'YAML'
+services:
+  adminer:
+    ports:
+      - "9110:8080"
+YAML
+
+# Optional: remove the no-router variant to reduce noise
+rm -f .ddev/docker-compose.adminer_norouter.yaml || true
+
+# We changed compose files → ensure router picks them up
+NEED_RESTART=1
+
+if [ "$NEED_RESTART" = "1" ]; then
+  echo "🔁 Restarting to (re)wire Adminer routes…"
+  ddev restart
+fi
 
 echo ""
 echo "✅ Project initialized."
@@ -31,6 +47,5 @@ ddev describe | awk '/https:/{print "   " $1; exit}'
 
 echo ""
 echo "🗃  Adminer:"
-echo "   Open with: ddev adminer"
+echo "   URL: http://$(ddev describe | awk '/Project URLs/{print $4; exit}' | sed 's/,//'):9110"
 echo "   Login → System: MySQL | Server: db | Username: db | Password: db | Database: db"
-

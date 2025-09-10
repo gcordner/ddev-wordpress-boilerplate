@@ -26,7 +26,10 @@ public/
 .ddev/addon-metadata/
 .ddev/commands/host/adminer
 .ddev/docker-compose.*.yaml
-!.ddev/docker-compose.adminer.override.yaml
+
+# keep our adminer template in git
+!.ddev/docker-compose.adminer.override.yaml.template
+
 
 # DDEV misc
 /.ddev/.global_commands
