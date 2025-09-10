@@ -9,7 +9,7 @@ router_https_port: "443"
 
 hooks:
   pre-stop:
-    - host_exec: bash -lc 'mkdir -p .ddev/backups && ddev export-db --file=.ddev/backups/auto-$(date +%F-%H%M).sql.gz'
+    - host_command: bash -lc 'mkdir -p .ddev/backups && ddev export-db --file=.ddev/backups/auto-$(date +%F-%H%M).sql.gz'
   pre-delete:
-    - host_exec: bash -lc 'mkdir -p .ddev/backups && ddev export-db --file=.ddev/backups/pre-delete-$(date +%F-%H%M).sql.gz'
+    - host_command: bash -lc 'mkdir -p .ddev/backups && ddev export-db --file=.ddev/backups/pre-delete-$(date +%F-%H%M).sql.gz'
 
